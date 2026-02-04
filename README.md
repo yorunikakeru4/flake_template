@@ -7,3 +7,13 @@
 ```bash
 nix flake init -t github:yorunikakeru/python_template#${template}
 ```
+
+Для добавления библиотек в зависимости добавляем в buildInputs 
+```nix
+        buildInputs = [
+          python
+          pkg.<library name>
+        ];
+
+```
+
