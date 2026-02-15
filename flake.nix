@@ -37,6 +37,11 @@
         path = ./js;
         description = "JavaScript dev shell";
       };
+
+      nix = {
+        path = ./nix;
+        description = "Nix dev shell";
+      };
       nvim = {
         path = ./nvim;
         description = "Neovim dev shell";
