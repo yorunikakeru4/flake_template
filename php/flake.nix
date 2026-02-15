@@ -1,5 +1,5 @@
 {
-  description = "Basic Python dev environment";
+  description = "Basic PHP dev environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
@@ -13,17 +13,15 @@
   }:
     flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
-      python = pkgs.python313;
-      pkg = pkgs.python313Packages;
     in {
       devShells.default = pkgs.mkShell {
         buildInputs = [
-          python
+          pkgs.php84
+          pkgs.phpactor
         ];
 
         shellHook = ''
-          echo "$(python --version)"
-
+          echo "$(php --version)"
         '';
       };
     });
