@@ -12,47 +12,39 @@
     nixpkgs,
     flake-utils,
     home-manager,
-  }:
-    flake-utils.lib.eachDefaultSystem (
-      system: let
-        pkgs = import nixpkgs {inherit system;};
-        hmPkgs = import home-manager.inputs.nixpkgs {
-          system = system;
-          overlays = [home-manager.overlay];
-        };
-        myDotfiles = builtins.fetchGit {
-          url = "https://codeberg.org/yorunikakeru/dotfiles";
-          ref = "main";
-        };
-        currentUser = builtins.getEnv "USER";
-        currentHome = builtins.getEnv "HOME";
-      in {
-        homeConfigurations.${currentUser} = home-manager.lib.homeManagerConfiguration {
-          pkgs = hmPkgs;
-          username = currentUser;
-          homeDirectory = currentHome;
+  }: let
+    myDotfiles = builtins.fetchGit {
+      url = "https://codeberg.org/yorunikakeru/dotfiles";
+      ref = "main";
+    };
+  in {
+    homeConfigurations = flake-utils.lib.eachDefaultSystem (system: let
+      hmPkgs = import home-manager.inputs.nixpkgs {
+        system = system;
+        overlays = [home-manager.overlay];
+      };
+      currentUser = builtins.getEnv "USER";
+      currentHome = builtins.getEnv "HOME";
+    in {
+      "${currentUser}" = home-manager.lib.homeManagerConfiguration {
+        pkgs = hmPkgs;
+        username = currentUser;
+        homeDirectory = currentHome;
 
-          programs.neovim.enable = true;
-          programs.neovim.extraConfig = builtins.readFile "${myDotfiles}/nvim/init.lua";
+        programs.neovim.enable = true;
+        programs.neovim.extraConfig = builtins.readFile "${myDotfiles}/nvim/init.lua";
+      };
+    });
 
-          home.file = builtins.listToAttrs (
-            map (
-              file: let
-                fname = builtins.baseNameOf file;
-              in {
-                name = ".config/nvim/lua/${fname}";
-                value = builtins.readFile "${myDotfiles}/nvim/lua/${fname}";
-              }
-            ) (builtins.filter (f: builtins.match ".*\\.lua" f != null) (builtins.readDir "${myDotfiles}/nvim/lua"))
-          );
-        };
-
-        # devShell отдельно (не внутри home-manager)
-        devShells.default = pkgs.mkShell {
-          buildInputs = [
-            pkgs.neovim
-          ];
-        };
-      }
-    );
+    # devShell топ-левел
+    devShells = {
+      default = import nixpkgs {system = "x86_64-linux";}.mkShell {
+        buildInputs = [
+          import
+          nixpkgs
+          {system = "x86_64-linux";}.neovim
+        ];
+      };
+    };
+  };
 }
