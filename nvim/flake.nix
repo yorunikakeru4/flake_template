@@ -43,7 +43,7 @@
 
             # Симлинк всей директории nvim
             xdg.configFile."nvim" = {
-              source = "${myDotfiles}/nvim";
+              source = "${myDotfiles}/light_nvim";
               recursive = true; # Копирует всю структуру
               force = true; # Перезаписывает существующие файлы
             };
