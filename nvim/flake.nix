@@ -16,13 +16,11 @@
     flake-utils,
     home-manager,
   }: let
-    # Dotfiles из Codeberg
     myDotfiles = builtins.fetchGit {
       url = "https://codeberg.org/yorunikakeru/dotfiles";
       ref = "main";
     };
 
-    # Функция для создания home-manager конфигурации
     mkHomeConfig = {
       pkgs,
       username,
@@ -40,7 +38,14 @@
             programs.neovim = {
               enable = true;
               defaultEditor = true;
-              initLua = builtins.readFile "${myDotfiles}/nvim/init.lua";
+              # Не используем initLua - конфиг будет в ~/.config/nvim
+            };
+
+            # Симлинк всей директории nvim
+            xdg.configFile."nvim" = {
+              source = "${myDotfiles}/nvim";
+              recursive = true; # Копирует всю структуру
+              force = true; # Перезаписывает существующие файлы
             };
           }
         ];
@@ -53,7 +58,6 @@
           config.allowUnfree = true;
         };
       in {
-        # nix develop
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             neovim
@@ -61,24 +65,18 @@
             ripgrep
             fd
           ];
-
           shellHook = ''
             echo "Dev shell loaded. Neovim ready."
           '';
         };
 
-        # nix run .#homeActivate -- [username] [home_dir]
-        # Или с --impure для автоопределения
         apps.homeActivate = {
           type = "app";
           program = toString (pkgs.writeShellScript "activate-home" ''
             set -e
-
             USERNAME="''${1:-''${USER:-$(whoami)}}"
             HOME_DIR="''${2:-''${HOME:-/home/$USERNAME}}"
-
             echo "Activating home-manager for: $USERNAME ($HOME_DIR)"
-
             ${pkgs.nix}/bin/nix build --impure --expr "
               let
                 flake = builtins.getFlake \"path:$(pwd)\";
@@ -90,12 +88,10 @@
                   homeDirectory = \"$HOME_DIR\";
                 }).activationPackage
             " -o result
-
             ./result/activate
           '');
         };
 
-        # Пакет neovim с конфигом
         packages.neovim-configured = pkgs.neovim.override {
           configure = {
             customRC = ''
