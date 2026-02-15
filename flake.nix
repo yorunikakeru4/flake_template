@@ -37,7 +37,10 @@
         path = ./js;
         description = "JavaScript dev shell";
       };
-
+      nvim_template = {
+        path = ./nvim;
+        description = "Neovim dev shell";
+      };
       base_template = {
         path = ./base;
         description = "Base dev shell";

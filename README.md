@@ -1,19 +1,32 @@
 # Шаблон для создания питон проекта на nix через flake
 
-### Список шаблонов:
-- template: общий шаблон который можно допиливать
+## Список шаблонов:
 
 Использование шаблона:
+
 ```bash
-nix flake init -t github:yorunikakeru/python_template#${template}
+nix flake init -t github:yorunikakeru/flake_template#${template}
 ```
 
-Для добавления библиотек в зависимости добавляем в buildInputs 
+Список templates:
+
+- python
+- rust
+- go
+- elixir
+- lua
+- js
+- php
+- nvim
+
+Template nvim подтягивает помимо nvim ещё и конфигурацию из codeberg (codeberg.org/yorunikakeru/dotfiles)
+
+Для добавления библиотек в зависимости Python добавляем в buildInputs
+
 ```nix
-        buildInputs = [
-          python
-          pkg.<library name>
-        ];
+buildInputs = [
+  python
+  pkg.<library name>
+];
 
 ```
-
