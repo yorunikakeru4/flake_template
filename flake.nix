@@ -3,52 +3,79 @@
 
   outputs = {self}: {
     templates = {
-      python = {
-        path = ./python;
+      python-dev = {
+        path = ./dev/python;
         description = "Python dev shell";
       };
 
-      go = {
-        path = ./go;
+      go-dev = {
+        path = ./dev/go;
         description = "Go dev shell";
       };
 
-      rust = {
-        path = ./rust;
+      rust-dev = {
+        path = ./dev/rust;
         description = "Rust dev shell";
       };
 
-      elixir = {
-        path = ./elixir;
+      rust-build = {
+        path = ./build/rust;
+        description = "Rust build shell";
+      };
+
+      elixir-dev = {
+        path = ./dev/elixir;
         description = "Elixir dev shell";
       };
 
-      lua = {
-        path = ./lua;
+      lua-dev = {
+        path = ./dev/lua;
         description = "Lua dev shell";
       };
 
-      php = {
-        path = ./php;
+      cpp-dev = {
+        path = ./dev/cpp;
+        description = "CPP dev shell";
+      };
+
+      cpp-build = {
+        path = ./build/cpp;
+        description = "CPP build shell";
+      };
+
+      c-sharp-dev = {
+        path = ./dev/cpp;
+        description = "C# dev shell";
+      };
+
+      android-build = {
+        path = ./build/android;
+        description = "Android build shell";
+      };
+
+      php-dev = {
+        path = ./dev/php;
         description = "PHP dev shell";
       };
 
-      js = {
-        path = ./js;
+      js-dev = {
+        path = ./dev/js;
         description = "JavaScript dev shell";
       };
 
-      nix = {
-        path = ./nix;
+      nix-dev = {
+        path = ./dev/nix;
         description = "Nix dev shell";
       };
-      nvim = {
-        path = ./nvim;
-        description = "Neovim dev shell";
-      };
+
       base = {
         path = ./base;
         description = "Base dev shell";
+      };
+
+      nvim = {
+        path = ./nvim;
+        description = "Neovim dev shell";
       };
     };
   };

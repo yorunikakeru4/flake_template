@@ -1,5 +1,5 @@
 {
-  description = "Basic JS dev environment";
+  description = "C# .NET dev environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
@@ -16,16 +16,14 @@
     in {
       devShells.default = pkgs.mkShell {
         buildInputs = with pkgs; [
-          nodejs
-          inspector
-          typescript
-          vite
-          bun
-          prettierd
+          dotnet-sdk
+          omnisharp-roslyn
+          csharp-ls
         ];
 
         shellHook = ''
-          echo "$(js --version)"
+          echo "C# .NET dev shell"
+          dotnet --version
         '';
       };
     });

@@ -26,11 +26,12 @@
           go-swagger
           go-task
           delve
+          gotools
+          go-task
         ];
 
         shellHook = ''
           echo "$(go version)"
-
         '';
       };
     });

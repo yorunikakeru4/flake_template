@@ -1,5 +1,5 @@
 {
-  description = "Basic JS dev environment";
+  description = "C Clang dev environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
@@ -16,16 +16,18 @@
     in {
       devShells.default = pkgs.mkShell {
         buildInputs = with pkgs; [
-          nodejs
-          inspector
-          typescript
-          vite
-          bun
-          prettierd
+          clang
+          clang-tools
+          lldb
+          gdb
+          cmake
+          gnumake
+          pkg-config
         ];
 
         shellHook = ''
-          echo "$(js --version)"
+          echo "C Clang dev shell"
+          clang --version
         '';
       };
     });

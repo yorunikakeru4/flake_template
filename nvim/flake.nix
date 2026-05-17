@@ -65,9 +65,10 @@
             fd
           ];
           shellHook = ''
-            echo "Dev shell loaded. Neovim ready."
-            echo "To activate home-manager configuration, run: `nix run .#homeActivate`"
             nvim --version
+              echo "Dev shell loaded. Neovim ready."
+              echo "To activate home-manager configuration, run: `nix run .#homeActivate`"
+              echo "nix run .#homeActivate"
           '';
         };
 
