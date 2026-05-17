@@ -25,7 +25,7 @@
         ];
 
         shellHook = ''
-          echo "$(js --version)"
+          echo "$(node --version)"
         '';
       };
     });

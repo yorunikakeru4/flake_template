@@ -8,6 +8,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    dotfiles = {
+      url = "git+https://codeberg.org/yorunikakeru/dotfiles?ref=main";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -15,11 +19,9 @@
     nixpkgs,
     flake-utils,
     home-manager,
+    dotfiles,
   }: let
-    myDotfiles = builtins.fetchGit {
-      url = "https://codeberg.org/yorunikakeru/dotfiles";
-      ref = "main";
-    };
+    myDotfiles = dotfiles;
 
     mkHomeConfig = {
       pkgs,
@@ -92,6 +94,7 @@
             " -o result
             ./result/activate
           '');
+          meta.description = "Activate home-manager Neovim configuration";
         };
 
         packages.neovim-configured = pkgs.neovim.override {

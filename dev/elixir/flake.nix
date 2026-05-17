@@ -19,7 +19,6 @@
           elixir
           erlang
           inotify-tools
-          mix
         ];
 
         shellHook = ''

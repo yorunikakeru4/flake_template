@@ -85,13 +85,17 @@
       };
 
       apps = let
-        defaultApp = flake-utils.lib.mkApp {
-          drv = app;
+        defaultApp =
+          (flake-utils.lib.mkApp {
+            drv = app;
 
-          # NOTE:
-          # Set this only if the binary name differs from packageName.
-          # exePath = "/bin/${packageName}";
-        };
+            # NOTE:
+            # Set this only if the binary name differs from packageName.
+            # exePath = "/bin/${packageName}";
+          })
+          // {
+            meta.description = "Run ${packageName}";
+          };
       in {
         default = defaultApp;
 

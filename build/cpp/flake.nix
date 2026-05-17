@@ -49,9 +49,13 @@
     in {
       packages.default = app;
 
-      apps.default = flake-utils.lib.mkApp {
-        drv = app;
-      };
+      apps.default =
+        (flake-utils.lib.mkApp {
+          drv = app;
+        })
+        // {
+          meta.description = "Run ${packageName}";
+        };
 
       checks = {
         default = app;

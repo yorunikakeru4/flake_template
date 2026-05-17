@@ -1,4 +1,4 @@
-# Шаблон для создания питон проекта на nix через flake
+# Nix flake templates
 
 ## Список шаблонов:
 
@@ -10,13 +10,21 @@ nix flake init -t github:yorunikakeru/flake_template#${template}
 
 Список templates:
 
-- python
-- rust
-- go
-- elixir
-- lua
-- js
-- php
+- base
+- python-dev
+- go-dev
+- rust-dev
+- rust-build
+- elixir-dev
+- lua-dev
+- cpp-dev
+- cpp-build
+- c-sharp-dev
+- android-dev
+- android-build
+- php-dev
+- js-dev
+- nix-dev
 - nvim
 
 Template nvim подтягивает помимо nvim ещё и конфигурацию из codeberg (codeberg.org/yorunikakeru/dotfiles)

@@ -44,8 +44,13 @@
       };
 
       c-sharp-dev = {
-        path = ./dev/cpp;
+        path = ./dev/c-sharp;
         description = "C# dev shell";
+      };
+
+      android-dev = {
+        path = ./dev/android;
+        description = "Android dev shell";
       };
 
       android-build = {
