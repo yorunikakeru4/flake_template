@@ -73,14 +73,24 @@
         description = "Nix dev shell";
       };
 
+      haskell-dev = {
+        path = ./dev/haskell;
+        description = "Haskell GHC dev shell";
+      };
+
+      go-build = {
+        path = ./build/go;
+        description = "Go build flake";
+      };
+
+      haskell-build = {
+        path = ./build/haskell;
+        description = "Haskell Cabal build flake";
+      };
+
       base = {
         path = ./base;
         description = "Base dev shell";
-      };
-
-      nvim = {
-        path = ./nvim;
-        description = "Neovim dev shell";
       };
     };
   };
